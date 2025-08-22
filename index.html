@@ -1,53 +1,234 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!doctype html>
+<html lang="ko">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2487.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>오늘의 이미지</title>
+  <meta name="description" content="NFC 키링으로 열리는, 매일 다른 이미지를 보여주는 간단한 웹페이지 (KST 기준)" />
+
+  <!-- Gmarket Sans 웹폰트 선언 (노눈누 CDN) -->
+  <style>
+  @font-face {
+    font-family: 'GmarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+    font-weight: 300; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'GmarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'GmarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  </style>
+
+  <style>
+    :root {
+      --bg: #fffde9;
+      --fg: #63493d;
+      --muted: #442012;
+ㄴ
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+      font-family: 'GmarketSans', sans-serif; 
+      display: grid; place-items: center;
+    }
+    .wrap { width: min(980px, 92vw); }
+    header { text-align: center; margin: 28px 0 18px; }
+    header h1 { 
+      font-family: 'GmarketSans', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, "Apple SD Gothic Neo", "Malgun Gothic", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      font-size: 1.1rem; 
+      font-weight: 700; 
+      margin: 0; 
+      color: var(--muted); 
+      letter-spacing: 0.02em; 
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 30px;
+      padding: clamp(10px, 2vw, 16px);
+      box-shadow: 0 8px 40px rgba(0,0,0,.35);
+      overflow: hidden;
+    }
+    .frame {
+      border-radius: 30px;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/4; /* 필요에 맞게 바꾸세요: 1/1, 4/5, 16/9 등 */
+      background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
+      display: grid; place-items: center;
+    }
+    img.today {
+      max-width: 100%; max-height: 100%; object-fit: contain; display: block;
+      opacity: 0; transition: opacity .45s ease;
+      border-radius: 30px;
+    }
+    img.today.loaded { opacity: 1; }
+
+    .meta { margin: 12px 4px 2px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .meta .date { font-size: .9rem; color: var(--muted); }
+    .meta .idx { font-size: .8rem; color: #7b8190; }
+
+    .hint { text-align: center; color: var(--muted); font-size: .95rem; margin: 10px 0 26px; }
+    .hidden { display: none; }
+    button.reload { appearance: none; border: 1px solid #2a2f39; background: #1a1d24; color: var(--fg); padding: 8px 12px; border-radius: 12px; cursor: pointer; font-weight: 600; }
+    button.reload:active { transform: translateY(1px); }
+    a { color: #9ac5ff; text-decoration: none; }
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html lang="ko"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;오늘의 말씀&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-family: sans-serif;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 100px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: #f9f9f9;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.verse {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 1.5rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-top: 50px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #333;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;h1&gt;📖 오늘의 말씀&lt;/h1&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="verse" id="verse"&gt;&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const verses = [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"여호와는 나의 목자시니 내게 부족함이 없으리로다 – 시편 23:1",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"내가 너와 함께 있으리라 – 이사야 41:10",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"항상 기뻐하라 – 데살로니가전서 5:16",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"두려워하지 말라 내가 너와 함께 함이라 – 이사야 41:10",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"내가 곧 길이요 진리요 생명이니 – 요한복음 14:6"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const randomVerse = verses[Math.floor(Math.random() * verses.length)];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById("verse").textContent = randomVerse;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+  <div class="wrap">
+    <header>
+     <div class="date" id="dateText">로딩 중…</div>
+      <h1>오늘 나에게 주시는 말씀</h1>
+
+    </header>
+
+    <div class="card">
+      <div class="frame">
+        <img id="today" class="today" alt="오늘의 이미지" referrerpolicy="no-referrer" />
+      </div>
+      <div class="meta">
+        <div class="idx" id="idxText"></div>
+      </div>
+    </div>
+
+    <p class="hint" id="hint">
+      이미지 목록을 설정하려면, 이 파일 상단의 <code>images</code> 배열에 파일 경로를 추가하세요. 
+      예) <code>"images/001.jpg"</code>
+    </p>
+  </div>
+
+  <script type="module">
+    // 1) 여기에 본인 이미지 경로를 나열하세요. (상대 경로 또는 절대 URL)
+    //   - 같은 폴더라면: "001.jpg"
+    //   - images 폴더라면: "images/001.jpg"
+    //   - 외부 링크도 가능: "https://.../001.jpg"
+    //   - alt(설명)가 필요하면 객체 형태로도 가능: { src: "images/001.jpg", alt: "라일락 향기" }
+    const images = [
+  "카드_말씀카드/01.jpg",
+  "카드_말씀카드/02.jpg"
+      // { src: "images/003.jpg", alt: "따뜻한 오후" },
+    ];
+
+    // 2) 매일 달라지되, 하루 동안은 고정되도록(랜덤X) 날짜 기반 인덱스를 계산합니다.
+
+    const TIMEZONE = 'Asia/Seoul'; // 한국 기준
+
+    function getKSTNow() {
+      // 로컬 시간이 아닌 KST로 변환된 "문자열"을 Date로 다시 파싱
+      return new Date(new Date().toLocaleString('en-US', { timeZone: TIMEZONE }));
+    }
+
+    function getDayNumberKST() {
+      const kst = getKSTNow();
+      // 1970-01-01 UTC 기준 일수 (KST 시각을 그대로 사용)
+      return Math.floor(kst.getTime() / 86400000);
+    }
+
+    // URL에 ?debug 또는 ?i=숫자 로 강제 인덱스 보기(테스트용)
+    const params = new URLSearchParams(location.search);
+    const debug = params.has('debug');
+    let forceIndex = params.get('i');
+    forceIndex = forceIndex !== null ? parseInt(forceIndex, 10) : null;
+
+    function pickImage(list) {
+      if (!list || list.length === 0) return null;
+      let index;
+      if (Number.isInteger(forceIndex)) {
+        index = ((forceIndex % list.length) + list.length) % list.length;
+      } else {
+        index = getDayNumberKST() % list.length;
+      }
+      const item = list[index];
+      const out = typeof item === 'string' ? { src: item, alt: '' } : item;
+      return { ...out, index };
+    }
+
+    function formatDateKST() {
+      const kst = getKSTNow();
+      return new Intl.DateTimeFormat('ko-KR', {
+        timeZone: TIMEZONE,
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'short'
+      }).format(kst);
+    }
+
+    async function showImage() {
+      const imgEl = document.getElementById('today');
+      const dateEl = document.getElementById('dateText');
+      const idxEl = document.getElementById('idxText');
+      const hintEl = document.getElementById('hint');
+
+      dateEl.textContent = formatDateKST();
+
+      const chosen = pickImage(images);
+
+      if (!chosen) {
+        imgEl.classList.remove('loaded');
+        imgEl.alt = '이미지 목록이 비어 있습니다. 상단의 images 배열을 채워주세요.';
+        imgEl.src = '';
+        idxEl.textContent = '';
+        hintEl.classList.remove('hidden');
+        return;
+      }
+
+      hintEl.classList.add('hidden');
+      idxEl.textContent = debug || Number.isInteger(forceIndex)
+        ? `index: ${chosen.index} / ${images.length - 1}`
+        : '';
+
+      // 이미지 프리로드 후 표시
+      const tmp = new Image();
+      tmp.referrerPolicy = 'no-referrer';
+      tmp.decoding = 'async';
+      tmp.loading = 'eager';
+      tmp.src = chosen.src + (chosen.src.includes('?') ? '&' : '?') + 'v=' + chosen.index; // 캐시 키(선택)
+      tmp.alt = chosen.alt || '오늘의 이미지';
+
+      tmp.onload = () => {
+        imgEl.classList.remove('loaded');
+        imgEl.src = tmp.src;
+        imgEl.alt = tmp.alt;
+        // 작은 지연 후 페이드인
+        requestAnimationFrame(() => {
+          imgEl.classList.add('loaded');
+        });
+      };
+
+      tmp.onerror = () => {
+        imgEl.classList.remove('loaded');
+        imgEl.alt = '이미지를 불러오지 못했습니다.';
+        imgEl.src = '';
+        idxEl.textContent = '';
+        hintEl.classList.remove('hidden');
+      };
+    }
+
+    showImage();
+
+    // 날짜가 바뀐 뒤에도 페이지를 새로고침하지 않아도 자동 업데이트되도록 5분 간격 체크
+    setInterval(() => {
+      const currentIndexText = document.getElementById('idxText').textContent;
+      const chosen = pickImage(images);
+      if (!chosen) return;
+      const newText = `index: ${chosen.index} / ${images.length - 1}`;
+      const debugMode = location.search.includes('debug') || location.search.includes('i=');
+      if (!debugMode) {
+        // 디버그가 아니면 인덱스 텍스트는 공란 유지
+      }
+      // 날짜 경계가 지나가면 다시 표시
+      const imgEl = document.getElementById('today');
+      if (!imgEl.src.includes(`v=${chosen.index}`)) {
+        showImage();
+      }
+    }, 5 * 60 * 1000);
+  </script>
 </body>
 </html>
